@@ -19,7 +19,6 @@ function mostrarRec(cat) {
     row.innerHTML="";
     obtenerDatos(urlcat)
     .then(datos=>{
-        console.log(datos.meals)
         datos.meals.forEach(dato => {
             row.innerHTML+=`
             <div class="col-md-4">
@@ -37,7 +36,6 @@ function mostrarRec(cat) {
     })
 }
 function abrirModal(id) {
-    console.log(id)
     const url3 ="https://www.themealdb.com/api/json/v1/1/lookup.php?i="+id;
     let titulo = document.querySelector("#emergenteLabel"); 
     let imagenes = document.querySelector("#imagenes"); 
@@ -46,17 +44,15 @@ function abrirModal(id) {
     let li = document.createElement("li");
     obtenerDatos(url3)
     .then(dato=>{
-            console.log(dato)
             titulo.textContent=dato.meals[0].strMeal;
             imagenes.src=dato.meals[0].strMealThumb;
             instru.textContent=dato.meals[0].strInstructions
-            
-            for (let i = 1; i < 20; i++) {
+            for (let i = 1; i < 21; i++) {
                 let ingre=dato.meals[0][`strIngredient`+i];
-                // let ingre=dato.meals[0][`strIngredient`+i];
-                if (ingre != "" && ingre != null) {
+                let cant = dato.meals[0][`strMeasure`+i];
+                if (ingre != "" && ingre != null ) {
                     let li = document.createElement("li");
-                    li.textContent=ingre;
+                    li.textContent=ingre+" - "+cant;
                     Ingredientes.append(li);
                 }
                

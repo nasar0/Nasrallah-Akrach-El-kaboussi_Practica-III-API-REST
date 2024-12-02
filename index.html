@@ -24,6 +24,15 @@
         header span{
             transform: scaleX(-1);
         }
+        #alert{
+            position: absolute;
+            margin-left:82%;
+            top: 15%;
+            div{
+                display: flex;
+                background-color: #5B62F4;
+            }
+        }
     </style>
 </head>
 <body>
@@ -48,6 +57,10 @@
         </div>
     </div>
     <div class="modal fade" id="emergente" tabindex="-1" aria-labelledby="emergenteLabel" aria-hidden="true">
+        <div id="alert"> 
+            <div><p>Recetas</p><button>X</button></div>
+            <p>Agregado Correctamente</p>
+        </div>
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
@@ -66,6 +79,7 @@
                 </ul>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Agregar a favoritos</button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
             </div>
             </div>
@@ -84,6 +98,7 @@
             </div> -->
         </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Button trigger modal -->
     
