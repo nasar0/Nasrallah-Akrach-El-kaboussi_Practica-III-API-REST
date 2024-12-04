@@ -1,8 +1,5 @@
-"use strict";
-//variables creadas para el ejercicio
-let selectCategoria = document.querySelector("#categoria select");
-const url = "https://www.themealdb.com/api/json/v1/1/categories.php";
-let row = document.querySelector("#recetas .row");
+
+let row = document.querySelector("#recetasFav .row");
 let botonAñadir = document.querySelector("#botonAñadir")
 let fav = JSON.parse(localStorage.getItem("dato")) || [];
 let alerta=  document.querySelector("#alert");
@@ -13,37 +10,29 @@ function obtenerDatos(url){
     return fetch(url)
     .then(respuestas => respuestas.json())
 }
-function cargarCategorias() {
-    obtenerDatos(url)
-    .then(datos=>{
-        datos.categories.forEach(dato => {
-            selectCategoria.innerHTML+=`<option value="${dato.strCategory}">${dato.strCategory}</option>`
-        });
-    })
-}
-function mostrarRec(cat) {
-    const urlcat = "https://www.themealdb.com/api/json/v1/1/filter.php?c="+cat;
-    row.innerHTML="";
-    obtenerDatos(urlcat)
-    .then(datos=>{
-        datos.meals.forEach(dato => {
-            row.innerHTML+=`
+let p = "pacho tus muertos"
+row.innerHTML = "";
+ if (fav.length > 0) {
+     fav.forEach(dato => {
+        row.innerHTML+=`
             <div class="col-md-4">
                 <div class="card bg-light mb-3" ">
-                <div class="card-header"><img src="${dato.strMealThumb}" class="img-fluid"></div>
+                <div class="card-header"><img src="${dato.meals[0].strMealThumb}" class="img-fluid"></div>
                 <div class="card-body">
-                    <h4 class="card-title">${dato.strMeal}</h4>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emergente" onClick="abrirModal(${dato.idMeal})">
+                    <h4 class="card-title">${dato.meals[0].strMeal}</h4>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emergente"  onClick="abrirModal(${dato.meals[0].idMeal})" >
                         Ver receta
                     </button>
                 </div>
                 </div>
             </div>`
-        });
-    })
-}
+            console.log(dato.meals[0])
+     });
+ } else {
+    row.innerHTML = "<p>No tienes recetas favoritas.</p>"; 
+ }
 
-function abrirModal(id) {
+ function abrirModal(id) {
     const url3 = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + id;
     let titulo = document.querySelector("#emergenteLabel"); 
     let imagenes = document.querySelector("#imagenes"); 
@@ -92,7 +81,7 @@ function abrirModal(id) {
                 alertap.textContent = "Agregado correctamente a favoritos";
             }
 
-
+            // Mostrar alerta
             alerta.style.opacity = 1;
             alerta.style.display = "block";
             setTimeout(() => {
@@ -104,9 +93,3 @@ function abrirModal(id) {
         };
     });
 }
-
-Cerrar.addEventListener("click", () =>{
-    alerta.style.display = "none";
-})
-
-cargarCategorias()
