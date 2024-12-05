@@ -1,4 +1,4 @@
-
+"use strict";
 let row = document.querySelector("#recetasFav .row");
 let botonAñadir = document.querySelector("#botonAñadir")
 let fav = JSON.parse(localStorage.getItem("dato")) || [];

@@ -11,7 +11,7 @@ let alertap = document.querySelector("#alert #text");
 
 function obtenerDatos(url){
     return fetch(url)
-    .then(respuestas => respuestas.json())
+    .then(respuestas => respuestas.json());
 }
 function cargarCategorias() {
     obtenerDatos(url)
